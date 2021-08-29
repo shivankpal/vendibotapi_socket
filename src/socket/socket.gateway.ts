@@ -10,6 +10,7 @@ import {
 	OnGatewayInit
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { Machines } from 'src/machine/machine.entity';
 
 @WebSocketGateway({ cors: true })
 export class SocketGateway
@@ -27,8 +28,13 @@ export class SocketGateway
 		this.socketService.socket = server;
 	}
 	async handleConnection(client: any) {
-		const machine_id = client.handshake.headers.machine_id;
-		if (machine_id) {
+		const authorization = client.handshake.headers.authorization;
+		console.log(authorization)
+		const code = authorization.split(' ')
+		if(code.length===0) return 
+		const machine = await Machines.findOne({ machine_id: code[1] })
+		if (machine) {
+			const machine_id = code[1]
 			console.log('ROOM');
 			client.join(`MACHINE${machine_id}`);
 		}
@@ -56,4 +62,5 @@ export class SocketGateway
 		const result = await this.itemService.cancelTransaction(order_id);
 		client.emit('init-cancel-response', result);
 	}
+
 }

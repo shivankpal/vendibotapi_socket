@@ -7,7 +7,7 @@ import { Cron } from '@nestjs/schedule';
 import { getConnection } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
-import { MachineItems } from './machine-items.entity';
+import { MachineItems } from '../machine/machine-items.entity';
 import { Payment } from './payment.entity';
 import { request } from 'express';
 import { TransactionStatus, TransactionType } from './common.enum';

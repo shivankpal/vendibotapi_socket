@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { MachineItemsStatus } from './common.enum';
+import { MachineItemsStatus } from '../items/common.enum';
 
 @Entity({ name: 'machine_items' })
 export class MachineItems extends BaseEntity {

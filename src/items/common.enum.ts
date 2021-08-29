@@ -2,7 +2,10 @@ export enum MachineItemsStatus {
 	ACTIVE = 'ACTIVE',
 	DEACTIVE = 'DEACTIVE'
 }
-
+export enum MachineType {
+	BEVARAGES = 'BEVARAGES',
+	DRINKS = 'DRINKS'
+}
 export enum TransactionStatus {
 	PENDING = 'PENDING',
 	CANCEL = 'CANCEL',

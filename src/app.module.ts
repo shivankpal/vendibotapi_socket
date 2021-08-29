@@ -5,9 +5,16 @@ import { SocketModule } from './socket/socket.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { WebhookModule } from './webhook/webhook.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 @Module({
-	imports: [
+	imports: [		
 		ScheduleModule.forRoot(),
+		ConfigModule.forRoot({
+			isGlobal: true,
+			expandVariables: true
+		}),
 		TypeOrmModule.forRoot({
 			type: 'mysql',
 			host: '127.0.0.1',
@@ -20,7 +27,10 @@ import { ScheduleModule } from '@nestjs/schedule';
 			synchronize: true
 		}),
 		SocketModule,
-		WebhookModule
+		WebhookModule,
+		UsersModule,
+		AuthModule
+
 	],
 	controllers: [AppController],
 	providers: [AppService]
