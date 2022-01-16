@@ -11,6 +11,7 @@ import { MachineItems } from '../machine/machine-items.entity';
 import { Payment } from './payment.entity';
 import { request } from 'express';
 import { TransactionStatus, TransactionType } from './common.enum';
+import { Machines } from 'src/machine/machine.entity';
 
 const PaytmChecksum = require('paytmchecksum');
 @Injectable()
@@ -227,8 +228,11 @@ export class ItemsService {
 							const orderdata = await Payment.findOne(
 								{ id: result.id }
 							);
+							const machine = await Machines.findOne({ id: result.machine_id  })
+							const machine_id = machine.machine_id
+							console.log(`push to room MACHINE_${machine_id}`)
 							socket
-								.to(`MACHINE${result.machine_id}`)
+								.to(`MACHINE_${machine_id}`)
 								.emit('transaction-response', {
 									orderdata: orderdata
 								});

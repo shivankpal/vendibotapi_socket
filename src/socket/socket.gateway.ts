@@ -35,8 +35,8 @@ export class SocketGateway
 		const machine = await Machines.findOne({ machine_id: code[1] })
 		if (machine) {
 			const machine_id = code[1]
-			console.log('ROOM');
-			client.join(`MACHINE${machine_id}`);
+			console.log('ROOM', `MACHINE_${machine_id}`);
+			client.join(`MACHINE_${machine_id}`);
 		}
 	}
 	async handleDisconnect(client: any) {
